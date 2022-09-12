@@ -8,25 +8,21 @@ const { DONE, CREATED } = require('../errors/statuses');
 // const AuthorizationError = require('../errors/authorizationError');
 const NotFoundError = require('../errors/notFoundError');
 
-/* const createUser = (req, res, next) => {
+const createUser = (req, res, next) => {
   const {
-    name, about, avatar, email, password,
+    name, email, password,
   } = req.body;
   bcrypt.hash(password, HASH_LENGTH).then((hash) => User.create({
-    name, about, avatar, email, password: hash,
+    name, email, password: hash,
   }))
-    .then((user) => User.findOne({ _id: user._id }))
+    .then((user) => User.findOne({ _id: user._id })) //Может сделать через деструктуризацию? Типа user.toObject(); return res.send({name: user.name, email: user.email})
     .then((user) => {
-      res.status(CREATED).header({
-        'Cross-Origin-Resource-Policy': 'cross-origin',
-        'Acces-Control-Allow-Credentials': 'true',
-        // 'Access-Control-Allow-Methods': 'GET, DELETE, HEAD, OPTIONS',
-      }).send(user);
+      res.status(CREATED).send(user);
     })
     .catch((err) => {
       customError(err, req, res, next);
     });
-}; */
+};
 
 /* const login = (req, res, next) => {
   const { email, password } = req.body;
@@ -135,7 +131,7 @@ const updateUserInfo = (req, res, next) => {
 }; */
 
 module.exports = {
-  // createUser,
+  createUser,
   // login,
   // findUsers,
   // findUserById,

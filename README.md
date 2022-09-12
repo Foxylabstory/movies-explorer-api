@@ -1,7 +1,6 @@
-[![Tests](https://github.com/Foxylabstory/express-mesto-gha/actions/workflows/tests-13-sprint.yml/badge.svg)](https://github.com/Foxylabstory/express-mesto-gha/actions/workflows/tests-13-sprint.yml) [![Tests](https://github.com/Foxylabstory/express-mesto-gha/actions/workflows/tests-14-sprint.yml/badge.svg)](https://github.com/Foxylabstory/express-mesto-gha/actions/workflows/tests-14-sprint.yml)
-# Проект Mesto фронтенд + бэкенд
+# Дипломный проект movies-explorer-api содержащий фронтенд + бэкенд
 
-Продолжение работы над проектом Mesto, если в прошлих спринтах была написана часть отвечающая за фронт приложения, в том числе создание страниц отвечающих за регистрацию и авторизацию пользователя. То в данной части курса будет написана серверная часть проекта к которой в последующем будет подключена пользовательская часть.
+текущий репозиторий movies-explorer-api является бэкенд частью, фронт располагается отдельно
 
 ## В этом проекта используются следующие технологии и инструменты
 

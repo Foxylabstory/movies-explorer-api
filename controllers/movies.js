@@ -1,43 +1,69 @@
-const Card = require('../models/card');
+const Movie = require('../models/movie');
 const { customError } = require('../errors/customErrors');
-const { CREATED } = require('../errors/errorStatuses');
+const { DONE, CREATED } = require('../errors/statuses');
 const NotFoundError = require('../errors/notFoundError');
 const ForbiddenError = require('../errors/forbiddenError');
 
-const createCard = (req, res, next) => {
-  const { name, link } = req.body;
-  Card.create({ name, link, owner: req.user._id })
-    .then((card) => {
-      res.status(CREATED).send(card);
+const createMovie = (req, res, next) => {
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    /* owner, */
+    movieId,
+    nameRu,
+    nameEN
+  } = req.body;
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    owner: req.user._id,
+    movieId,
+    nameRu,
+    nameEN,
+  })
+    .then((movie) => {
+      res.status(CREATED).send(movie);
     })
     .catch((err) => {
       customError(err, req, res, next);
     });
 };
 
-const findCards = (req, res, next) => {
-  Card.find({}).sort({ createdAt: -1 })
-    .then((card) => res.send(card))
+const findMovies = (req, res, next) => {
+  Movie.find({}) // .sort({ createdAt: -1 })
+    .then((movie) => res.status(DONE).send(movie))
     .catch((err) => {
       customError(err, req, res, next);
     });
 };
 
-const deleteCard = (req, res, next) => {
-  Card.findById(req.params.cardId)
+const deleteMovie = (req, res, next) => {
+  Movie.findById(req.params._movieId)
     .orFail(() => {
       throw new NotFoundError('Запрашиваемые данные по указанному id не найдены');
     })
-    .then((card) => {
-      if (card.owner.toString() !== req.user._id) {
+    .then((movie) => {
+      if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError('Удаляемая запись принадлежит другому пользователю');
       }
-      Card.findByIdAndRemove(req.params.cardId)
+      Movie.findByIdAndRemove(req.params._movieId)
         .orFail(() => {
           throw new NotFoundError('Запрашиваемые данные по указанному id не найдены');
         })
-        .then((cardForDeleting) => {
-          res.send(cardForDeleting);
+        .then((movieForDeleting) => {
+          res.status(DONE).send(movieForDeleting);
         })
         .catch((err) => {
           customError(err, req, res, next);
@@ -48,7 +74,7 @@ const deleteCard = (req, res, next) => {
     });
 };
 
-const likeCard = (req, res, next) => {
+/* const likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
@@ -63,9 +89,9 @@ const likeCard = (req, res, next) => {
     .catch((err) => {
       customError(err, req, res, next);
     });
-};
+}; */
 
-const dislikeCard = (req, res, next) => {
+/* const dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } }, // убрать _id из массива
@@ -80,12 +106,12 @@ const dislikeCard = (req, res, next) => {
     .catch((err) => {
       customError(err, req, res, next);
     });
-};
+}; */
 
 module.exports = {
-  createCard,
-  findCards,
-  deleteCard,
-  likeCard,
-  dislikeCard,
+  createMovie,
+  findMovies,
+  deleteMovie,
+  // likeCard,
+  // dislikeCard,
 };

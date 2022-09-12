@@ -7,30 +7,10 @@ const AuthorizationError = require('../errors/authorizationError');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    // required: false,
+    required: [true, 'name is required'],
     minlength: [2, 'Must be at least 2, you got {VALUE}'],
     maxlength: [30, 'Must be no more than 30, you got {VALUE}'],
-    default: 'Жак-Ив Кусто',
-  },
-  about: {
-    type: String,
-    // required: false,
-    minlength: [2, 'Must be at least 2, you got {VALUE}'],
-    maxlength: [30, 'Must be no more than 30, you got {VALUE}'],
-    default: 'Исследователь',
-  },
-  avatar: {
-    type: String,
-    // required: false,
-    default: 'https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png',
-    validate: {
-      validator: (link) => {
-        validator.isURL(link, {
-          protocols: ['http', 'https'],
-          require_protocol: true,
-        });
-      },
-    },
+    default: 'You are Rock',
   },
   email: {
     type: String,

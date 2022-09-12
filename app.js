@@ -12,7 +12,7 @@ const signup = require('./routes/signup');
 const signin = require('./routes/signin');
 const auth = require('./middlewares/auth');
 const users = require('./routes/users');
-const cards = require('./routes/cards');
+const movies = require('./routes/movies');
 const NotFoundError = require('./errors/notFoundError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -50,7 +50,7 @@ app.use('/signin', signin);
 app.use(auth);
 
 app.use('/users', users);
-app.use('/cards', cards);
+app.use('/movies', movies);
 app.get('/signout', (req, res, next) => {
   try {
     res
@@ -84,7 +84,7 @@ app.use((err, req, res, next) => {
 });
 
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/mestodb', {
+  await mongoose.connect('mongodb://localhost:27017/bitfilmsdb', {
     useNewUrlParser: true,
     // useCreateIndex: true, //https://stackoverflow.com/questions/68958221/mongoparseerror-options-usecreateindex-usefindandmodify-are-not-supported
     // useFindAndModify: false, //https://stackoverflow.com/questions/68958221/mongoparseerror-options-usecreateindex-usefindandmodify-are-not-supported

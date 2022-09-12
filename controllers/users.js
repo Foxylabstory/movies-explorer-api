@@ -24,13 +24,13 @@ const createUser = (req, res, next) => {
     });
 };
 
-/* const login = (req, res, next) => {
+const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? SECRET_KEY : 'dev-key', { expiresIn: '7d' });
       res
-        .cookie('jwt', token, {
+        /* .cookie('jwt', token, {
           maxAge: 3600000 * 24 * 7,
           // httpOnly: true, // выключили доступ к куке из ЖС
           sameSite: 'None', // принимает/отправляет куки только с того же домена
@@ -39,10 +39,11 @@ const createUser = (req, res, next) => {
         }).header({
           'Cross-Origin-Resource-Policy': 'cross-origin',
           'Acces-Control-Allow-Credentials': 'true',
-        }).send({ message: 'allowed' });
+        }) */
+        .send({ token });
     })
     .catch((err) => next(err));
-}; */
+};
 
 /* const findUsers = (req, res, next) => {
   User.find({})
@@ -132,7 +133,7 @@ const updateUserInfo = (req, res, next) => {
 
 module.exports = {
   createUser,
-  // login,
+  login,
   // findUsers,
   // findUserById,
   getUserInfo,

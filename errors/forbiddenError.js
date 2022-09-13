@@ -1,4 +1,4 @@
-const { FORBIDDEN } = require('./statuses');
+const { FORBIDDEN } = require('../utils/statuses');
 
 class ConflictError extends Error {
   constructor(message) {

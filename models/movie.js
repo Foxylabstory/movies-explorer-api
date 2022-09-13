@@ -69,6 +69,8 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: [true, 'nameEN is required'],
   },
+}, {
+  versionKey: false,
 });
 
 module.exports = mongoose.model('movie', movieSchema);

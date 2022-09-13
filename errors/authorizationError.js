@@ -1,4 +1,4 @@
-const { UNAUTHORIZED } = require('./statuses');
+const { UNAUTHORIZED } = require('../utils/statuses');
 
 class AuthorizationError extends Error {
   constructor(message) {

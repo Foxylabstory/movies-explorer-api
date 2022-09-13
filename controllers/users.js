@@ -13,7 +13,6 @@ const {
 const NotFoundError = require('../errors/notFoundError');
 
 const createUser = (req, res, next) => {
-  debugger;
   const {
     name, email, password,
   } = req.body;

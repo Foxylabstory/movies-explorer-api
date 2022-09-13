@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const { NODE_ENV, SECRET_KEY, HASH_LENGTH } = process.env;
+const { NODE_ENV, SECRET_KEY, HASH_LENGTH = 10 } = process.env;
 const { DEV_SECRET_KEY, DEV_HASH_LENGTH } = require('../utils/devconfig');
 const User = require('../models/user');
 const { customError } = require('../errors/customErrors');
@@ -13,6 +13,7 @@ const {
 const NotFoundError = require('../errors/notFoundError');
 
 const createUser = (req, res, next) => {
+  debugger;
   const {
     name, email, password,
   } = req.body;

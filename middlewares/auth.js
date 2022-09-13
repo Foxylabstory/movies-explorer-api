@@ -21,7 +21,6 @@ const {
 }; */
 
 module.exports = (req, res, next) => {
-  debugger;
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWith('Bearer ')) {
     throw new AuthorizationError(authorizationMessage);

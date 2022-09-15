@@ -7,6 +7,7 @@ const {
   // likeCard,
   // dislikeCard,
 } = require('../controllers/movies');
+const { isURLValidation } = require('../utils/validation');
 
 router.get('/', findMovies);
 
@@ -23,11 +24,11 @@ router.post('/', celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().required().pattern(/https?:\/\/(www\.)?[a-zA-Z\d\-.]{1,}\.[a-z]{1,6}([/a-z0-9\-._~:?#[\]@!$&'()*+,;=]*)/),
-    trailerLink: Joi.string().required().pattern(/https?:\/\/(www\.)?[a-zA-Z\d\-.]{1,}\.[a-z]{1,6}([/a-z0-9\-._~:?#[\]@!$&'()*+,;=]*)/),
-    thumbnail: Joi.string().required().pattern(/https?:\/\/(www\.)?[a-zA-Z\d\-.]{1,}\.[a-z]{1,6}([/a-z0-9\-._~:?#[\]@!$&'()*+,;=]*)/),
+    image: Joi.string().required().custom(isURLValidation),
+    trailerLink: Joi.string().required().custom(isURLValidation),
+    thumbnail: Joi.string().required().custom(isURLValidation),
     movieId: Joi.number().required(),
-    nameRu: Joi.string().required(),
+    nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
 }), createMovie);

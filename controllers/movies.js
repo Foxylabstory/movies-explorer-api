@@ -18,9 +18,8 @@ const createMovie = (req, res, next) => {
     image,
     trailerLink,
     thumbnail,
-    /* owner, */
     movieId,
-    nameRu,
+    nameRU,
     nameEN,
   } = req.body;
   Movie.create({
@@ -34,7 +33,7 @@ const createMovie = (req, res, next) => {
     thumbnail,
     owner: req.user._id,
     movieId,
-    nameRu,
+    nameRU,
     nameEN,
   })
     .then((movie) => {
@@ -62,16 +61,16 @@ const deleteMovie = (req, res, next) => {
       if (movie.owner.toString() !== req.user._id) {
         throw new ForbiddenError(forbiddenMessage);
       }
-      Movie.findByIdAndRemove(req.params._id)
+      return Movie.findByIdAndRemove(req.params._id)
         .orFail(() => {
           throw new NotFoundError(notFoundMessage);
         })
         .then((movieForDeleting) => {
           res.status(DONE).send(movieForDeleting);
-        })
-        .catch((err) => {
-          customError(err, req, res, next);
         });
+      /* .catch((err) => {
+        customError(err, req, res, next);
+      }); */
     })
     .catch((err) => {
       customError(err, req, res, next);

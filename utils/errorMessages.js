@@ -5,6 +5,7 @@ const conflictMessage = 'Пользователь с такой почтой у�
 const authorizationMessage = 'Необходима авторизация';
 const emailPasswordAuthorizationMessage = 'Неправильные почта или пароль';
 const emailValidationMesssage = 'Неправильный формат почты';
+const urlValidationMesssage = 'Неправильный формат ссылки';
 const crashMessage = 'Сервер сейчас упадёт';
 const pageNotFoundMessage = 'Страница не найдена';
 const internalServerErrorMessage = 'На сервере произошла ошибка';
@@ -17,6 +18,7 @@ module.exports = {
   authorizationMessage,
   emailPasswordAuthorizationMessage,
   emailValidationMesssage,
+  urlValidationMesssage,
   crashMessage,
   pageNotFoundMessage,
   internalServerErrorMessage,

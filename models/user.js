@@ -7,24 +7,22 @@ const { emailPasswordAuthorizationMessage, emailValidationMesssage } = require('
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'name is required'],
-    minlength: [2, 'Must be at least 2, you got {VALUE}'],
-    maxlength: [30, 'Must be no more than 30, you got {VALUE}'],
-    /* default: 'You are Rock', */
+    required: true,
+    minlength: 2,
+    maxlength: 30,
   },
   email: {
     type: String,
-    required: [true, 'email is required'],
-    unique: [true, 'email is not unique'],
+    required: true,
+    unique: true,
     validate: {
       validator: (v) => isEmail(v),
       message: emailValidationMesssage,
     },
-    // match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Invalid email format'],
   },
   password: {
     type: String,
-    required: [true, 'password is required'],
+    required: true,
     select: false,
   },
 }, {

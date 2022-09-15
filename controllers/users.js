@@ -9,7 +9,6 @@ const { DONE, CREATED } = require('../utils/statuses');
 const {
   notFoundMessage,
 } = require('../utils/errorMessages');
-// const AuthorizationError = require('../errors/authorizationError');
 const NotFoundError = require('../errors/notFoundError');
 
 const createUser = (req, res, next) => {
@@ -20,9 +19,6 @@ const createUser = (req, res, next) => {
     name, email, password: hash,
   }))
     .then((user) => User.findOne({ _id: user._id }))
-    // Может сделать через деструктуризацию? Типа
-    // user.toObject();
-    // return res.send({name: user.name, email: user.email})
     .then((user) => {
       res.status(CREATED).send(user);
     })
@@ -36,50 +32,10 @@ const login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? SECRET_KEY : DEV_SECRET_KEY, { expiresIn: '7d' });
-      res
-        /* .cookie('jwt', token, {
-          maxAge: 3600000 * 24 * 7,
-          // httpOnly: true, // выключили доступ к куке из ЖС
-          sameSite: 'None', // принимает/отправляет куки только с того же домена
-          secure: 'True',
-          // crossOrigin: true,
-        }).header({
-          'Cross-Origin-Resource-Policy': 'cross-origin',
-          'Acces-Control-Allow-Credentials': 'true',
-        }) */
-        .send({ token });
+      res.send({ token });
     })
     .catch((err) => next(err));
 };
-
-/* const findUsers = (req, res, next) => {
-  User.find({})
-    .then((users) => {
-      res.header({
-        'Cross-Origin-Resource-Policy': 'cross-origin',
-        'Acces-Control-Allow-Credentials': 'true',
-      }).send(users);
-    })
-    .catch((err) => {
-      customError(err, req, res, next);
-    });
-}; */
-
-/* const findUserById = (req, res, next) => {
-  User.findById(req.params.userId)
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемые данные по указанному id не найдены');
-    })
-    .then((user) => {
-      res.header({
-        'Cross-Origin-Resource-Policy': 'cross-origin',
-        'Acces-Control-Allow-Credentials': 'true',
-      }).send(user);
-    })
-    .catch((err) => {
-      customError(err, req, res, next);
-    });
-}; */
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
@@ -115,35 +71,9 @@ const updateUserInfo = (req, res, next) => {
     });
 };
 
-/* const updateUserAvatar = (req, res, next) => {
-  const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    {
-      new: true, // обработчик then получит на вход обновлённую запись
-      runValidators: true, // данные будут валидированы перед изменением
-    },
-  ).orFail(() => {
-    throw new NotFoundError('Запрашиваемые данные по указанному id не найдены');
-  })
-    .then((user) => {
-      res.header({
-        'Cross-Origin-Resource-Policy': 'cross-origin',
-        'Acces-Control-Allow-Credentials': 'true',
-      }).send(user);
-    })
-    .catch((err) => {
-      customError(err, req, res, next);
-    });
-}; */
-
 module.exports = {
   createUser,
   login,
-  // findUsers,
-  // findUserById,
   getUserInfo,
   updateUserInfo,
-  // updateUserAvatar,
 };

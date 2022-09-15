@@ -68,53 +68,14 @@ const deleteMovie = (req, res, next) => {
         .then((movieForDeleting) => {
           res.status(DONE).send(movieForDeleting);
         });
-      /* .catch((err) => {
-        customError(err, req, res, next);
-      }); */
     })
     .catch((err) => {
       customError(err, req, res, next);
     });
 };
 
-/* const likeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
-    { new: true },
-  )
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемые данные по указанному id не найдены');
-    })
-    .then((card) => {
-      res.send(card);
-    })
-    .catch((err) => {
-      customError(err, req, res, next);
-    });
-}; */
-
-/* const dislikeCard = (req, res, next) => {
-  Card.findByIdAndUpdate(
-    req.params.cardId,
-    { $pull: { likes: req.user._id } }, // убрать _id из массива
-    { new: true },
-  )
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемые данные по указанному id не найдены');
-    })
-    .then((card) => {
-      res.send(card);
-    })
-    .catch((err) => {
-      customError(err, req, res, next);
-    });
-}; */
-
 module.exports = {
   createMovie,
   findMovies,
   deleteMovie,
-  // likeCard,
-  // dislikeCard,
 };

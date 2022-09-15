@@ -4,8 +4,6 @@ const {
   createMovie,
   findMovies,
   deleteMovie,
-  // likeCard,
-  // dislikeCard,
 } = require('../controllers/movies');
 const { isURLValidation } = require('../utils/validation');
 
@@ -32,17 +30,5 @@ router.post('/', celebrate({
     nameEN: Joi.string().required(),
   }),
 }), createMovie);
-
-/* router.put('/:cardId/likes', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex().required(),
-  }),
-}), likeCard); */
-
-/* router.delete('/:cardId/likes', celebrate({
-  params: Joi.object().keys({
-    cardId: Joi.string().length(24).hex().required(),
-  }),
-}), dislikeCard); */
 
 module.exports = router;

@@ -1,0 +1,15 @@
+module.exports.corsOption = {
+  origin: ['https://foxylabstory.nomoredomains.sbs',
+    'http://foxylabstory.nomoredomains.sbs',
+    'https://www.foxylabstory.nomoredomains.sbs',
+    'http://www.foxylabstory.nomoredomains.sbs',
+    'http://localhost:3000',
+    'https://localhost:3000',
+    'http://localhost:3001',
+    'https://localhost:3001',
+    'http://localhost:3002',
+    'https://localhost:3002',
+  ],
+  credentials: true,
+  // preflightContinue: true,
+};
